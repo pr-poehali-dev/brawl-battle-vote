@@ -4,7 +4,19 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import Icon from '@/components/ui/icon';
 
-const END_DATE = new Date('2026-01-08T15:00:00');
+const END_DATE = new Date('2026-01-09T11:00:00');
+
+const STORAGE_KEY = 'brawl_battle_vote';
+const DEVICE_ID_KEY = 'brawl_battle_device_id';
+
+const getDeviceId = () => {
+  let deviceId = localStorage.getItem(DEVICE_ID_KEY);
+  if (!deviceId) {
+    deviceId = `device_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem(DEVICE_ID_KEY, deviceId);
+  }
+  return deviceId;
+};
 
 const Index = () => {
   const [activeSection, setActiveSection] = useState('home');
@@ -17,6 +29,22 @@ const Index = () => {
     seconds: 0
   });
   const [isVotingEnded, setIsVotingEnded] = useState(false);
+
+  useEffect(() => {
+    const deviceId = getDeviceId();
+    const storedVote = localStorage.getItem(STORAGE_KEY);
+    if (storedVote) {
+      try {
+        const voteData = JSON.parse(storedVote);
+        if (voteData.deviceId === deviceId) {
+          setHasVoted(true);
+          setVotes(voteData.votes);
+        }
+      } catch (e) {
+        console.error('Error parsing stored vote:', e);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -42,8 +70,21 @@ const Index = () => {
 
   const handleVote = (side: 'angels' | 'demons') => {
     if (hasVoted || isVotingEnded) return;
-    setVotes(prev => ({ ...prev, [side]: prev[side] + 1 }));
+    
+    const deviceId = getDeviceId();
+    const newVotes = { ...votes, [side]: votes[side] + 1 };
+    
+    setVotes(newVotes);
     setHasVoted(true);
+    
+    const voteData = {
+      deviceId,
+      votes: newVotes,
+      timestamp: Date.now(),
+      side
+    };
+    
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(voteData));
   };
 
   const totalVotes = votes.angels + votes.demons;
@@ -265,7 +306,7 @@ const Index = () => {
                         {winner === 'tie' && '⚖️ НИЧЬЯ!'}
                       </h3>
                       <p className="text-xl text-muted-foreground">
-                        Голосование завершено 8 января 2026 в 15:00
+                        Голосование завершено 9 января 2026 в 11:00
                       </p>
                     </Card>
                   )}
@@ -394,7 +435,7 @@ const Index = () => {
       <footer className="border-t border-border py-8">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
           <p className="mb-2">
-            Голосование завершится 8 января 2026 в 15:00
+            Голосование завершится 9 января 2026 в 11:00
           </p>
           <p className="text-sm">
             Присоединяйтесь к нашему сообществу и помогите определить победителя! 🚀
