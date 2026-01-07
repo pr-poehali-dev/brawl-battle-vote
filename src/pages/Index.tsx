@@ -352,8 +352,17 @@ const Index = () => {
                 ВИДЕО
               </h2>
               <Card className="p-8">
-                <div className="aspect-video bg-muted rounded-lg flex items-center justify-center mb-6">
-                  <Icon name="Youtube" size={64} className="text-muted-foreground" />
+                <div className="aspect-video bg-background rounded-lg overflow-hidden mb-6">
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/L3XpIr-1Y6E"
+                    title="Открытие демонических стартропов"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    className="w-full h-full"
+                  ></iframe>
                 </div>
                 <h3 className="text-2xl font-bold mb-4">
                   Открытие демонических стартропов
@@ -363,13 +372,17 @@ const Index = () => {
                   как мы открывали демонические стартропы!
                 </p>
                 <div className="space-y-3">
-                  <Button size="lg" className="w-full" disabled>
-                    <Icon name="ExternalLink" size={20} className="mr-2" />
-                    Ссылка на видео будет добавлена позже
+                  <Button size="lg" className="w-full" asChild>
+                    <a href="https://youtu.be/L3XpIr-1Y6E?si=v06ysGyqGOvU6BmY" target="_blank" rel="noopener noreferrer">
+                      <Icon name="ExternalLink" size={20} className="mr-2" />
+                      Смотреть на YouTube
+                    </a>
                   </Button>
-                  <Button size="lg" variant="outline" className="w-full" disabled>
-                    <Icon name="ExternalLink" size={20} className="mr-2" />
-                    Посетить наш канал
+                  <Button size="lg" variant="outline" className="w-full" asChild>
+                    <a href="https://youtube.com/@brawlbattle-o2c?si=wxmlb170s7sg3g_b" target="_blank" rel="noopener noreferrer">
+                      <Icon name="Youtube" size={20} className="mr-2" />
+                      Подписаться на канал
+                    </a>
                   </Button>
                 </div>
               </Card>
