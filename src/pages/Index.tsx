@@ -98,26 +98,43 @@ const Index = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-card/90 backdrop-blur-lg border-b border-border">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl md:text-3xl font-black tracking-tight">
+            <h1 className="text-2xl md:text-3xl font-black tracking-tight bg-gradient-to-r from-[hsl(var(--angel))] via-white to-[hsl(var(--demon-light))] bg-clip-text text-transparent">
               BRAWL BATTLE
             </h1>
-            <div className="flex gap-2 md:gap-4">
-              {['home', 'vote', 'results', 'video'].map(section => (
+            <div className="flex gap-2 md:gap-4 items-center">
+              {['home', 'vote', 'results'].map(section => (
                 <button
                   key={section}
                   onClick={() => setActiveSection(section)}
                   className={`px-3 md:px-4 py-2 rounded-lg font-medium transition-all ${
                     activeSection === section
-                      ? 'bg-primary text-primary-foreground'
+                      ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/50'
                       : 'hover:bg-muted'
                   }`}
                 >
                   {section === 'home' && 'Главная'}
                   {section === 'vote' && 'Голосование'}
                   {section === 'results' && 'Результаты'}
-                  {section === 'video' && 'Видео'}
                 </button>
               ))}
+              <a
+                href="https://youtu.be/L3XpIr-1Y6E?si=v06ysGyqGOvU6BmY"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 md:px-4 py-2 rounded-lg font-medium transition-all hover:bg-muted flex items-center gap-2"
+              >
+                <Icon name="Youtube" size={20} />
+                Видео
+              </a>
+              <a
+                href="https://youtube.com/@brawlbattle-o2c?si=wxmlb170s7sg3g_b"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 md:px-4 py-2 rounded-lg font-medium transition-all bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg shadow-accent/30 flex items-center gap-2"
+              >
+                <Icon name="Radio" size={18} />
+                Канал
+              </a>
             </div>
           </div>
         </div>
@@ -126,8 +143,9 @@ const Index = () => {
       <main className="pt-24 pb-12">
         {activeSection === 'home' && (
           <div className="container mx-auto px-4">
-            <div className="max-w-5xl mx-auto text-center mb-16 animate-fade-in">
-              <h2 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">
+            <div className="max-w-5xl mx-auto text-center mb-16 animate-fade-in relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-[hsl(var(--angel))]/10 via-transparent to-[hsl(var(--demon))]/10 blur-3xl -z-10"></div>
+              <h2 className="text-5xl md:text-7xl font-black mb-6 tracking-tight bg-gradient-to-r from-[hsl(var(--angel))] via-white to-[hsl(var(--demon-light))] bg-clip-text text-transparent animate-pulse-glow">
                 ЭПИЧЕСКОЕ
                 <br />
                 ПРОТИВОСТОЯНИЕ
@@ -138,37 +156,37 @@ const Index = () => {
             </div>
 
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-16">
-              <Card className="p-8 gradient-angel text-background hover:scale-105 transition-transform">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">😇</div>
-                  <h3 className="text-3xl font-black mb-4">АНГЕЛЬСКИЕ</h3>
-                  <p className="text-background/80 mb-6">
-                    Сила света и справедливости
+              <Card className="p-8 gradient-angel text-background hover:scale-105 transition-all duration-300 angel-particles border-2 border-[hsl(var(--angel))]">
+                <div className="text-center relative z-10">
+                  <div className="text-7xl mb-6 animate-bounce">😇</div>
+                  <h3 className="text-4xl font-black mb-4 drop-shadow-lg">АНГЕЛЬСКИЕ</h3>
+                  <p className="text-background/90 mb-6 text-lg font-medium">
+                    ✨ Сила света и справедливости ✨
                   </p>
                   <Button
                     size="lg"
                     variant="secondary"
-                    className="w-full text-lg font-bold"
+                    className="w-full text-lg font-bold shadow-xl hover:shadow-2xl transition-all"
                     onClick={() => setActiveSection('vote')}
                   >
-                    Голосовать
+                    💫 Голосовать
                   </Button>
                 </div>
               </Card>
 
-              <Card className="p-8 gradient-demon text-foreground hover:scale-105 transition-transform">
-                <div className="text-center">
-                  <div className="text-6xl mb-4">😈</div>
-                  <h3 className="text-3xl font-black mb-4">ДЕМОНИЧЕСКИЕ</h3>
-                  <p className="text-foreground/80 mb-6">
-                    Мощь тьмы и хаоса
+              <Card className="p-8 gradient-demon text-foreground hover:scale-105 transition-all duration-300 demon-particles border-2 border-[hsl(var(--demon-light))]">
+                <div className="text-center relative z-10">
+                  <div className="text-7xl mb-6 animate-bounce">😈</div>
+                  <h3 className="text-4xl font-black mb-4 drop-shadow-lg">ДЕМОНИЧЕСКИЕ</h3>
+                  <p className="text-foreground/90 mb-6 text-lg font-medium">
+                    🔥 Мощь тьмы и хаоса 🔥
                   </p>
                   <Button
                     size="lg"
-                    className="w-full text-lg font-bold bg-background text-foreground hover:bg-background/90"
+                    className="w-full text-lg font-bold bg-background text-foreground hover:bg-background/90 shadow-xl hover:shadow-2xl transition-all"
                     onClick={() => setActiveSection('vote')}
                   >
-                    Голосовать
+                    ⚡ Голосовать
                   </Button>
                 </div>
               </Card>
@@ -222,50 +240,57 @@ const Index = () => {
                   </Button>
                 </Card>
               ) : hasVoted ? (
-                <Card className="p-8 text-center">
-                  <Icon name="CheckCircle2" size={64} className="mx-auto mb-4 text-primary" />
-                  <h3 className="text-2xl font-bold mb-2">Спасибо за участие!</h3>
-                  <p className="text-muted-foreground">
-                    Ваш голос учтён. Результаты будут доступны после завершения голосования.
+                <Card className="p-10 text-center border-4 border-primary shadow-2xl shadow-primary/50">
+                  <Icon name="CheckCircle2" size={80} className="mx-auto mb-6 text-primary animate-pulse" />
+                  <h3 className="text-4xl font-black mb-4">🎉 Спасибо за участие! 🎉</h3>
+                  <p className="text-muted-foreground text-lg">
+                    Ваш голос учтён. Результаты доступны в разделе "Результаты".
                   </p>
+                  <Button
+                    size="lg"
+                    className="mt-6"
+                    onClick={() => setActiveSection('results')}
+                  >
+                    📊 Посмотреть результаты
+                  </Button>
                 </Card>
               ) : (
                 <div className="grid md:grid-cols-2 gap-8">
                   <Card
-                    className="p-8 gradient-angel text-background cursor-pointer hover:scale-105 transition-transform animate-pulse-glow"
+                    className="p-10 gradient-angel text-background cursor-pointer hover:scale-105 transition-all duration-300 animate-pulse-glow angel-particles border-4 border-[hsl(var(--angel))] relative overflow-hidden"
                     onClick={() => handleVote('angels')}
                   >
-                    <div className="text-center">
-                      <div className="text-8xl mb-6">😇</div>
-                      <h3 className="text-4xl font-black mb-4">АНГЕЛЬСКИЕ</h3>
-                      <p className="text-background/90 text-lg mb-6">
-                        Нажмите, чтобы проголосовать за силы света
+                    <div className="text-center relative z-10">
+                      <div className="text-9xl mb-8 animate-bounce">😇</div>
+                      <h3 className="text-5xl font-black mb-6 drop-shadow-2xl">АНГЕЛЬСКИЕ</h3>
+                      <p className="text-background/95 text-xl mb-8 font-bold">
+                        ✨ Нажмите, чтобы проголосовать за силы света ✨
                       </p>
                       <Button
                         size="lg"
                         variant="secondary"
-                        className="w-full text-xl font-bold py-6"
+                        className="w-full text-2xl font-black py-8 shadow-2xl hover:shadow-3xl transition-all"
                       >
-                        ГОЛОСОВАТЬ
+                        💫 ГОЛОСОВАТЬ 💫
                       </Button>
                     </div>
                   </Card>
 
                   <Card
-                    className="p-8 gradient-demon text-foreground cursor-pointer hover:scale-105 transition-transform animate-pulse-glow"
+                    className="p-10 gradient-demon text-foreground cursor-pointer hover:scale-105 transition-all duration-300 animate-pulse-glow demon-particles border-4 border-[hsl(var(--demon-light))] relative overflow-hidden"
                     onClick={() => handleVote('demons')}
                   >
-                    <div className="text-center">
-                      <div className="text-8xl mb-6">😈</div>
-                      <h3 className="text-4xl font-black mb-4">ДЕМОНИЧЕСКИЕ</h3>
-                      <p className="text-foreground/90 text-lg mb-6">
-                        Нажмите, чтобы проголосовать за силы тьмы
+                    <div className="text-center relative z-10">
+                      <div className="text-9xl mb-8 animate-bounce">😈</div>
+                      <h3 className="text-5xl font-black mb-6 drop-shadow-2xl">ДЕМОНИЧЕСКИЕ</h3>
+                      <p className="text-foreground/95 text-xl mb-8 font-bold">
+                        🔥 Нажмите, чтобы проголосовать за силы тьмы 🔥
                       </p>
                       <Button
                         size="lg"
-                        className="w-full text-xl font-bold py-6 bg-background text-foreground hover:bg-background/90"
+                        className="w-full text-2xl font-black py-8 bg-background text-foreground hover:bg-background/90 shadow-2xl hover:shadow-3xl transition-all"
                       >
-                        ГОЛОСОВАТЬ
+                        ⚡ ГОЛОСОВАТЬ ⚡
                       </Button>
                     </div>
                   </Card>
@@ -386,50 +411,7 @@ const Index = () => {
           </div>
         )}
 
-        {activeSection === 'video' && (
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-4xl md:text-5xl font-black text-center mb-8">
-                ВИДЕО
-              </h2>
-              <Card className="p-8">
-                <div className="aspect-video bg-background rounded-lg overflow-hidden mb-6">
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/L3XpIr-1Y6E"
-                    title="Открытие демонических стартропов"
-                    frameBorder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="w-full h-full"
-                  ></iframe>
-                </div>
-                <h3 className="text-2xl font-bold mb-4">
-                  Открытие демонических стартропов
-                </h3>
-                <p className="text-muted-foreground mb-6">
-                  Узнайте больше о причинах проведения этого эпического голосования и посмотрите, 
-                  как мы открывали демонические стартропы!
-                </p>
-                <div className="space-y-3">
-                  <Button size="lg" className="w-full" asChild>
-                    <a href="https://youtu.be/L3XpIr-1Y6E?si=v06ysGyqGOvU6BmY" target="_blank" rel="noopener noreferrer">
-                      <Icon name="ExternalLink" size={20} className="mr-2" />
-                      Смотреть на YouTube
-                    </a>
-                  </Button>
-                  <Button size="lg" variant="outline" className="w-full" asChild>
-                    <a href="https://youtube.com/@brawlbattle-o2c?si=wxmlb170s7sg3g_b" target="_blank" rel="noopener noreferrer">
-                      <Icon name="Youtube" size={20} className="mr-2" />
-                      Подписаться на канал
-                    </a>
-                  </Button>
-                </div>
-              </Card>
-            </div>
-          </div>
-        )}
+
       </main>
 
       <footer className="border-t border-border py-8">
